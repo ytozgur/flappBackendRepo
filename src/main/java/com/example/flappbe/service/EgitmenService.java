@@ -6,6 +6,10 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public interface EgitmenService {
-    boolean saveEgitmen(MultipartFile file, String danismanAccountDTO);
+    boolean saveEgitmen(MultipartFile photo,
+                        MultipartFile criminalRecord,
+                        MultipartFile resume,
+                        MultipartFile coursePresentation,
+                        String danismanAccountDTO);
     String getEgitmenName(long id);
 }

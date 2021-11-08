@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Service
@@ -23,8 +24,9 @@ public class EgitmenServiceImpl implements EgitmenService {
     private EgitmenRepo egitmenRepo;
     @Autowired
     private FileSystemRepository fileSystemRepository;
+
     @Override
-    public boolean saveEgitmen(MultipartFile file, String danismanAccountDTOString) {
+    public boolean saveEgitmen(MultipartFile photo, MultipartFile criminalRecord, MultipartFile resume, MultipartFile coursePresentation, String danismanAccountDTOString) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             EgitmenDTO egitmenDTO = objectMapper.readValue(danismanAccountDTOString, EgitmenDTO.class);
@@ -32,7 +34,11 @@ public class EgitmenServiceImpl implements EgitmenService {
             BeanUtils.copyProperties(egitmenDTO, egitmenModel);
             egitmenModel.setCreatedOn(LocalDateTime.now());
             egitmenModel.setApproved(false);
-            egitmenModel.setImgPath(fileSystemRepository.save(file.getBytes(), file.getName()));
+            egitmenModel.setImgPath(fileSystemRepository.save(photo.getBytes(), photo.getName()));
+            egitmenModel.setCriminalRecordPath(fileSystemRepository.save(criminalRecord.getBytes(), criminalRecord.getName()));
+            egitmenModel.setResumePath(fileSystemRepository.save(resume.getBytes(), resume.getName()));
+            egitmenModel.setCoursePresentation(fileSystemRepository.save(coursePresentation.getBytes(), coursePresentation.getName()));
+            egitmenModel.setBirthdate(LocalDate.of(2000,10,10));
             egitmenRepo.save(egitmenModel);
             return true;
         }
@@ -43,7 +49,7 @@ public class EgitmenServiceImpl implements EgitmenService {
 
     @Override
     public String getEgitmenName(long id) {
-        return egitmenRepo.getById(id).getNameSurname();
+        return egitmenRepo.getById(id).getName();
     }
 
 
