@@ -38,7 +38,6 @@ public class EgitmenServiceImpl implements EgitmenService {
             egitmenModel.setCriminalRecordPath(fileSystemRepository.save(criminalRecord.getBytes(), criminalRecord.getName()));
             egitmenModel.setResumePath(fileSystemRepository.save(resume.getBytes(), resume.getName()));
             egitmenModel.setCoursePresentation(fileSystemRepository.save(coursePresentation.getBytes(), coursePresentation.getName()));
-            egitmenModel.setBirthdate(LocalDate.of(2000,10,10));
             egitmenRepo.save(egitmenModel);
             return true;
         }

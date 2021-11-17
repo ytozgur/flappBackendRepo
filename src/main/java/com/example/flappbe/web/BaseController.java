@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.math.BigInteger;
 
 @RestController
-@RequestMapping(value = "/base")
+@RequestMapping(value = "/Flapp")
 public class BaseController {
 
     @Autowired

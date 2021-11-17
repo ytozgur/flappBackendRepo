@@ -1,11 +1,12 @@
 package com.example.flappbe.model.dto;
 
+import com.example.flappbe.utils.localdateSerializers.LocalDateDeserializer;
+import com.example.flappbe.utils.localdateSerializers.LocalDateSerializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,14 +23,14 @@ public class EgitmenDTO {
     private String email;
     private String phone;
 
-//    @JsonSerialize(using = LocalDateTimeSerializer.class)
-//    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-//    @JsonFormat(pattern="yyyy-MM-dd")
-    private String birthdate;
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    private LocalDate birthdate;
     private String job;
     private String courseSubject;
     private int availableDurationWeekly;
     @JsonProperty("isBlockedFromCurrentJob")
     private boolean blockedFromCurrentJob;
+    private boolean wantToBeInformed;
 
 }
